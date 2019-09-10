@@ -4,51 +4,42 @@
 #include "01_hello_world.h"
 #include "02_temperature_Fahrenheit_to_Celsius.h"
 
-void test_hello_world(void) {
-	int stdout_bk; 	// is fd for stdout backup
+static int stdout_bk; 	// is fd for stdout backup
+static int pipefd[2];
+static char buf[101];
+
+void stdout_capture_start() {
+	fflush(stdout);		//flushall();
 	stdout_bk = dup(fileno(stdout));
 
-	int pipefd[2];
 	pipe(pipefd);
 
 	// What used to be stdout will now go to the pipe.
 	dup2(pipefd[1], fileno(stdout));
+}
 
-	hello_world();
-
+void stdout_capture_finish() {
 	fflush(stdout);		//flushall();
 	write(pipefd[1], "", 9); 	// null-terminated string!
 	close(pipefd[1]);
 
 	dup2(stdout_bk, fileno(stdout));	//restore
 
-	char buf[101];
 	read(pipefd[0], buf, 100);
+}
+
+void test_hello_world() {
+	stdout_capture_start();
+	hello_world();
+	stdout_capture_finish();
 
 	TEST_ASSERT_EQUAL_STRING(buf, "hello, world\n");
 }
 
 void test_temperature_Fahrenheit_to_Celsius() {
-	fflush(stdout);		//flushall();
-	int stdout_bk; 	// is fd for stdout backup
-	stdout_bk = dup(fileno(stdout));
-
-	int pipefd[2];
-	pipe(pipefd);
-
-	// What used to be stdout will now go to the pipe.
-	dup2(pipefd[1], fileno(stdout));
-
+	stdout_capture_start();
 	temperature_Fahrenheit_to_Celsius();
-
-	fflush(stdout);		//flushall();
-	write(pipefd[1], "", 9); 	// null-terminated string!
-	close(pipefd[1]);
-
-	dup2(stdout_bk, fileno(stdout));	//restore
-
-	char buf[101];
-	read(pipefd[0], buf, 100);
+	stdout_capture_finish();
 
 	char* expect = \
 		"0\t-17\n"
