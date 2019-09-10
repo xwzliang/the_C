@@ -5,6 +5,7 @@
 #include "02_temperature_Fahrenheit_to_Celsius.h"
 #include "03_temperature_Fahrenheit_to_Celsius_use_float_nums.h"
 #include "04_temperature_Fahrenheit_to_Celsius_use_for_loop.h"
+#include "05_temperature_Fahrenheit_to_Celsius_use_symbolic_constants.h"
 
 static int stdout_bk; 	// is fd for stdout backup
 static int pipefd[2];
@@ -83,11 +84,27 @@ void test_temperature_Fahrenheit_to_Celsius_use_for_loop() {
 	TEST_ASSERT_EQUAL_STRING(expect, buf);
 }
 
+void test_temperature_Fahrenheit_to_Celsius_use_symbolic_constants() {
+	stdout_capture_start();
+	temperature_Fahrenheit_to_Celsius_use_symbolic_constants();
+	stdout_capture_finish();
+
+	char* expect = \
+		"  0  -17.8\n"
+		" 20   -6.7\n"
+		" 40    4.4\n"
+		" 60   15.6\n"
+		" 80   26.7\n"
+		"100   37.8\n";
+	TEST_ASSERT_EQUAL_STRING(expect, buf);
+}
+
 int main() {
 	UNITY_BEGIN();
 	RUN_TEST(test_hello_world);
 	RUN_TEST(test_temperature_Fahrenheit_to_Celsius);
 	RUN_TEST(test_temperature_Fahrenheit_to_Celsius_use_float_nums);
 	RUN_TEST(test_temperature_Fahrenheit_to_Celsius_use_for_loop);
+	RUN_TEST(test_temperature_Fahrenheit_to_Celsius_use_symbolic_constants);
 	return UNITY_END();
 }
