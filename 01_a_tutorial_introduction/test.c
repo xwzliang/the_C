@@ -11,6 +11,7 @@
 #include "08_count_line_word_char_for_stdin.h"
 #include "09_count_digit_white_space_and_others_for_stdin.h"
 #include "10_power.h"
+#include "11_print_longest_line_for_stdin.h"
 
 static int stdout_bk; 	// is fd for stdout backup
 static int pipefd[2];
@@ -143,6 +144,14 @@ void test_power() {
 	TEST_ASSERT_EQUAL_INT(power(-3, 3), -27);
 }
 
+void test_print_longest_line_for_stdin() {
+	stdout_capture_start();
+	print_longest_line_for_stdin();
+	stdout_capture_finish();
+
+	TEST_ASSERT_EQUAL_STRING("test: hello, world\n", buf);
+}
+
 int main() {
 	UNITY_BEGIN();
 	RUN_TEST(test_hello_world);
@@ -155,6 +164,7 @@ int main() {
 	/*RUN_TEST(test_copy_stdin_to_stdout);*/
 	/*RUN_TEST(test_count_line_for_stdin);*/
 	/*RUN_TEST(test_count_line_word_char_for_stdin);*/
-	RUN_TEST(test_count_digit_white_space_and_others_for_stdin);
+	/*RUN_TEST(test_count_digit_white_space_and_others_for_stdin);*/
+	RUN_TEST(test_print_longest_line_for_stdin);
 	return UNITY_END();
 }
