@@ -10,6 +10,7 @@
 #include "07_count_line_for_stdin.h"
 #include "08_count_line_word_char_for_stdin.h"
 #include "09_count_digit_white_space_and_others_for_stdin.h"
+#include "10_power.h"
 
 static int stdout_bk; 	// is fd for stdout backup
 static int pipefd[2];
@@ -135,6 +136,13 @@ void test_count_digit_white_space_and_others_for_stdin() {
 	TEST_ASSERT_EQUAL_STRING("digits = 0 1 1 2 2 1 2 1 1 1, white space = 9, others = 32\n", buf);
 }
 
+void test_power() {
+	int i;
+
+	TEST_ASSERT_EQUAL_INT(power(2, 3), 8);
+	TEST_ASSERT_EQUAL_INT(power(-3, 3), -27);
+}
+
 int main() {
 	UNITY_BEGIN();
 	RUN_TEST(test_hello_world);
@@ -142,6 +150,7 @@ int main() {
 	RUN_TEST(test_temperature_Fahrenheit_to_Celsius_use_float_nums);
 	RUN_TEST(test_temperature_Fahrenheit_to_Celsius_use_for_loop);
 	RUN_TEST(test_temperature_Fahrenheit_to_Celsius_use_symbolic_constants);
+	RUN_TEST(test_power);
 	/*Following tests cannot be run simultaneously, because there can be only one stdin, as there's only one file descriptor 0.*/
 	/*RUN_TEST(test_copy_stdin_to_stdout);*/
 	/*RUN_TEST(test_count_line_for_stdin);*/
