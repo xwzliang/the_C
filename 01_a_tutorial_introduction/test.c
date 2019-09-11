@@ -6,6 +6,7 @@
 #include "03_temperature_Fahrenheit_to_Celsius_use_float_nums.h"
 #include "04_temperature_Fahrenheit_to_Celsius_use_for_loop.h"
 #include "05_temperature_Fahrenheit_to_Celsius_use_symbolic_constants.h"
+#include "06_copy_stdin_to_stdout.h"
 
 static int stdout_bk; 	// is fd for stdout backup
 static int pipefd[2];
@@ -99,6 +100,14 @@ void test_temperature_Fahrenheit_to_Celsius_use_symbolic_constants() {
 	TEST_ASSERT_EQUAL_STRING(expect, buf);
 }
 
+void test_copy_stdin_to_stdout() {
+	stdout_capture_start();
+	copy_stdin_to_stdout();
+	stdout_capture_finish();
+
+	TEST_ASSERT_EQUAL_STRING("test copy_stdin_to_stdout: hello, world\n", buf);
+}
+
 int main() {
 	UNITY_BEGIN();
 	RUN_TEST(test_hello_world);
@@ -106,5 +115,6 @@ int main() {
 	RUN_TEST(test_temperature_Fahrenheit_to_Celsius_use_float_nums);
 	RUN_TEST(test_temperature_Fahrenheit_to_Celsius_use_for_loop);
 	RUN_TEST(test_temperature_Fahrenheit_to_Celsius_use_symbolic_constants);
+	RUN_TEST(test_copy_stdin_to_stdout);
 	return UNITY_END();
 }
