@@ -8,6 +8,7 @@
 #include "05_temperature_Fahrenheit_to_Celsius_use_symbolic_constants.h"
 #include "06_copy_stdin_to_stdout.h"
 #include "07_count_line_for_stdin.h"
+#include "08_count_line_word_char_for_stdin.h"
 
 static int stdout_bk; 	// is fd for stdout backup
 static int pipefd[2];
@@ -117,6 +118,14 @@ void test_count_line_for_stdin() {
 	TEST_ASSERT_EQUAL_STRING("2\n", buf);
 }
 
+void test_count_line_word_char_for_stdin() {
+	stdout_capture_start();
+	count_line_word_char_for_stdin();
+	stdout_capture_finish();
+
+	TEST_ASSERT_EQUAL_STRING("2 6 36\n", buf);
+}
+
 int main() {
 	UNITY_BEGIN();
 	RUN_TEST(test_hello_world);
@@ -126,6 +135,7 @@ int main() {
 	RUN_TEST(test_temperature_Fahrenheit_to_Celsius_use_symbolic_constants);
 	/*Following tests cannot be run simultaneously, because there can be only one stdin, as there's only one file descriptor 0.*/
 	/*RUN_TEST(test_copy_stdin_to_stdout);*/
-	RUN_TEST(test_count_line_for_stdin);
+	/*RUN_TEST(test_count_line_for_stdin);*/
+	RUN_TEST(test_count_line_word_char_for_stdin);
 	return UNITY_END();
 }
