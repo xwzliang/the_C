@@ -7,6 +7,7 @@
 #include "04_temperature_Fahrenheit_to_Celsius_use_for_loop.h"
 #include "05_temperature_Fahrenheit_to_Celsius_use_symbolic_constants.h"
 #include "06_copy_stdin_to_stdout.h"
+#include "07_count_line_for_stdin.h"
 
 static int stdout_bk; 	// is fd for stdout backup
 static int pipefd[2];
@@ -105,7 +106,15 @@ void test_copy_stdin_to_stdout() {
 	copy_stdin_to_stdout();
 	stdout_capture_finish();
 
-	TEST_ASSERT_EQUAL_STRING("test copy_stdin_to_stdout: hello, world\n", buf);
+	TEST_ASSERT_EQUAL_STRING("test: hello, world\nThis is awesome!\n", buf);
+}
+
+void test_count_line_for_stdin() {
+	stdout_capture_start();
+	count_line_for_stdin();
+	stdout_capture_finish();
+
+	TEST_ASSERT_EQUAL_STRING("2\n", buf);
 }
 
 int main() {
@@ -115,6 +124,8 @@ int main() {
 	RUN_TEST(test_temperature_Fahrenheit_to_Celsius_use_float_nums);
 	RUN_TEST(test_temperature_Fahrenheit_to_Celsius_use_for_loop);
 	RUN_TEST(test_temperature_Fahrenheit_to_Celsius_use_symbolic_constants);
-	RUN_TEST(test_copy_stdin_to_stdout);
+	/*Following tests cannot be run simultaneously, because there can be only one stdin, as there's only one file descriptor 0.*/
+	/*RUN_TEST(test_copy_stdin_to_stdout);*/
+	RUN_TEST(test_count_line_for_stdin);
 	return UNITY_END();
 }
