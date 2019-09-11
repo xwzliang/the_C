@@ -9,6 +9,7 @@
 #include "06_copy_stdin_to_stdout.h"
 #include "07_count_line_for_stdin.h"
 #include "08_count_line_word_char_for_stdin.h"
+#include "09_count_digit_white_space_and_others_for_stdin.h"
 
 static int stdout_bk; 	// is fd for stdout backup
 static int pipefd[2];
@@ -107,7 +108,7 @@ void test_copy_stdin_to_stdout() {
 	copy_stdin_to_stdout();
 	stdout_capture_finish();
 
-	TEST_ASSERT_EQUAL_STRING("test: hello, world\nThis is awesome!\n", buf);
+	TEST_ASSERT_EQUAL_STRING("test: hello, world\nThis is awesome!\n1234, 3456, 6789\n", buf);
 }
 
 void test_count_line_for_stdin() {
@@ -115,7 +116,7 @@ void test_count_line_for_stdin() {
 	count_line_for_stdin();
 	stdout_capture_finish();
 
-	TEST_ASSERT_EQUAL_STRING("2\n", buf);
+	TEST_ASSERT_EQUAL_STRING("3\n", buf);
 }
 
 void test_count_line_word_char_for_stdin() {
@@ -123,7 +124,15 @@ void test_count_line_word_char_for_stdin() {
 	count_line_word_char_for_stdin();
 	stdout_capture_finish();
 
-	TEST_ASSERT_EQUAL_STRING("2 6 36\n", buf);
+	TEST_ASSERT_EQUAL_STRING("3 9 53\n", buf);
+}
+
+void test_count_digit_white_space_and_others_for_stdin() {
+	stdout_capture_start();
+	count_digit_white_space_and_others_for_stdin();
+	stdout_capture_finish();
+
+	TEST_ASSERT_EQUAL_STRING("digits = 0 1 1 2 2 1 2 1 1 1, white space = 9, others = 32\n", buf);
 }
 
 int main() {
@@ -136,6 +145,7 @@ int main() {
 	/*Following tests cannot be run simultaneously, because there can be only one stdin, as there's only one file descriptor 0.*/
 	/*RUN_TEST(test_copy_stdin_to_stdout);*/
 	/*RUN_TEST(test_count_line_for_stdin);*/
-	RUN_TEST(test_count_line_word_char_for_stdin);
+	/*RUN_TEST(test_count_line_word_char_for_stdin);*/
+	RUN_TEST(test_count_digit_white_space_and_others_for_stdin);
 	return UNITY_END();
 }
