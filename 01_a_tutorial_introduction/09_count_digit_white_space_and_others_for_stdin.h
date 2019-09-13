@@ -1,1 +1,0 @@
-void count_digit_white_space_and_others_for_stdin();

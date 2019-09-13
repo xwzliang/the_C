@@ -1,18 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <unity.h>
-#include "01_hello_world.h"
-#include "02_temperature_Fahrenheit_to_Celsius.h"
-#include "03_temperature_Fahrenheit_to_Celsius_use_float_nums.h"
-#include "04_temperature_Fahrenheit_to_Celsius_use_for_loop.h"
-#include "05_temperature_Fahrenheit_to_Celsius_use_symbolic_constants.h"
-#include "06_copy_stdin_to_stdout.h"
-#include "07_count_line_for_stdin.h"
-#include "08_count_line_word_char_for_stdin.h"
-#include "09_count_digit_white_space_and_others_for_stdin.h"
-#include "10_power.h"
-#include "11_print_longest_line_for_stdin.h"
-#include "12_print_longest_line_for_stdin_use_extern_vars.h"
+#include "test.h"
 
 static int stdout_bk; 	// is fd for stdout backup
 static int pipefd[2];
