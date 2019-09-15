@@ -53,10 +53,23 @@ void test_strlen() {
 	TEST_ASSERT_EQUAL_INT(16, str_len(ptr_char));
 }
 
+void test_str_cpy() {
+	char dest1[11];	// length should be 11! One more for '\0' at the end of string, otherwise test will fail
+	char arr_char[] = "0123456789";
+	str_cpy(dest1, arr_char);
+	TEST_ASSERT_EQUAL_STRING(arr_char, dest1);
+
+	char dest2[17];
+	char * ptr_char = "This is awesome!";
+	str_cpy(dest2, ptr_char);
+	TEST_ASSERT_EQUAL_STRING(dest2, ptr_char);
+}
+
 int main() {
 	UNITY_BEGIN();
 	RUN_TEST(test_swap);
 	RUN_TEST(test_getint);
 	RUN_TEST(test_strlen);
+	RUN_TEST(test_str_cpy);
 	return UNITY_END();
 }
