@@ -87,6 +87,15 @@ void test_sort() {
 	TEST_ASSERT_EQUAL_STRING(expect, buf);
 }
 
+void test_day_and_month() {
+	TEST_ASSERT_EQUAL_INT(60, day_of_year(1991, 3, 1));
+	TEST_ASSERT_EQUAL_INT(61, day_of_year(1992, 3, 1));
+	int m, d;
+	month_day(1988, 60, &m, &d);
+	TEST_ASSERT_EQUAL_INT(2, m);
+	TEST_ASSERT_EQUAL_INT(29, d);
+}
+
 int main() {
 	UNITY_BEGIN();
 	RUN_TEST(test_swap);
@@ -95,5 +104,6 @@ int main() {
 	RUN_TEST(test_str_cpy);
 	RUN_TEST(test_str_cmp);
 	RUN_TEST(test_sort);
+	RUN_TEST(test_day_and_month);
 	return UNITY_END();
 }
