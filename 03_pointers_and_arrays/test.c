@@ -44,9 +44,19 @@ void test_getint() {
 	TEST_ASSERT_EQUAL_INT(-689, y);
 }
 
+void test_strlen() {
+	int x = str_len("hello, world");
+	TEST_ASSERT_EQUAL_INT(12, x);
+	char arr_char[10] = "0123456789";
+	TEST_ASSERT_EQUAL_INT(10, str_len(arr_char));
+	char * ptr_char = "This is awesome!";
+	TEST_ASSERT_EQUAL_INT(16, str_len(ptr_char));
+}
+
 int main() {
 	UNITY_BEGIN();
 	RUN_TEST(test_swap);
 	RUN_TEST(test_getint);
+	RUN_TEST(test_strlen);
 	return UNITY_END();
 }
