@@ -65,11 +65,21 @@ void test_str_cpy() {
 	TEST_ASSERT_EQUAL_STRING(dest2, ptr_char);
 }
 
+void test_str_cmp() {
+	char *x = "01234";
+	char *y = "1";
+	char *z = "1";
+	TEST_ASSERT_TRUE(str_cmp(y, x) > 0);
+	TEST_ASSERT_TRUE(str_cmp(x, y) < 0);
+	TEST_ASSERT_TRUE(str_cmp(y, z) == 0);
+}
+
 int main() {
 	UNITY_BEGIN();
 	RUN_TEST(test_swap);
 	RUN_TEST(test_getint);
 	RUN_TEST(test_strlen);
 	RUN_TEST(test_str_cpy);
+	RUN_TEST(test_str_cmp);
 	return UNITY_END();
 }
