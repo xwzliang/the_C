@@ -96,6 +96,10 @@ void test_day_and_month() {
 	TEST_ASSERT_EQUAL_INT(29, d);
 }
 
+void test_month_name() {
+	TEST_ASSERT_EQUAL_STRING("February", month_name(2));
+}
+
 int main() {
 	UNITY_BEGIN();
 	RUN_TEST(test_swap);
@@ -105,5 +109,6 @@ int main() {
 	RUN_TEST(test_str_cmp);
 	RUN_TEST(test_sort);
 	RUN_TEST(test_day_and_month);
+	RUN_TEST(test_month_name);
 	return UNITY_END();
 }
