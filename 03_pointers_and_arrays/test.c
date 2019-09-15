@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <unity.h>
 #include "test.h"
+#include "06_pointer_arrays_pointers_to_pointers/sort.h"
 
 static int stdout_bk; 	// is fd for stdout backup
 static int pipefd[2];
@@ -74,6 +75,18 @@ void test_str_cmp() {
 	TEST_ASSERT_TRUE(str_cmp(y, z) == 0);
 }
 
+void test_sort() {
+	stdout_capture_start();
+	sort();
+	stdout_capture_finish();
+	char *expect = 
+		"01234\n"
+		"Hello, world.\n"
+		"This is awesome!\n"
+		;
+	TEST_ASSERT_EQUAL_STRING(expect, buf);
+}
+
 int main() {
 	UNITY_BEGIN();
 	RUN_TEST(test_swap);
@@ -81,5 +94,6 @@ int main() {
 	RUN_TEST(test_strlen);
 	RUN_TEST(test_str_cpy);
 	RUN_TEST(test_str_cmp);
+	RUN_TEST(test_sort);
 	return UNITY_END();
 }
