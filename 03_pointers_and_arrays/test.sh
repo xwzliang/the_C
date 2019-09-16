@@ -62,3 +62,34 @@ expect=$(cat <<- _EOF_
 	_EOF_
 )
 sh_test
+
+# Test for new version sort
+cd ../10_pointers_to_functions
+../../../daily_tools/get_h *.c > sort.h
+gcc *.c -o sort.out
+chmod +x sort.out
+output=$(./sort.out <<< $test_string)
+expect=$(cat <<- _EOF_
+	01234
+	Hello, world.
+	This is awesome!
+	_EOF_
+)
+sh_test
+
+test_string=$(cat <<- _EOF_
+	01234
+	84357.38457
+	1435879
+	-835459.834
+	_EOF_
+)
+output=$(./sort.out -n <<< $test_string)
+expect=$(cat <<- _EOF_
+	-835459.834
+	01234
+	84357.38457
+	1435879
+	_EOF_
+)
+sh_test

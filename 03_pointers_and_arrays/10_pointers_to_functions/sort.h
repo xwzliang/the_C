@@ -1,0 +1,10 @@
+char *alloc(int n);
+void afree(char *p);
+int get_line(char s[], int lim);
+int num_cmp(char *s1, char *s2);
+void qsort(void *v[], int left, int right, int (*comp) (void *, void *));
+void swap_all(void *v[], int i, int j);
+int readlines(char *lineptr[], int maxlines);
+void writelines(char *lineptr[], int nlines);
+int main(int argc, char * argv[]);
+int str_cmp(char *s, char *t);
