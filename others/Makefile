@@ -26,3 +26,11 @@ run1: $(hw_out)
 # Hello World from thread 13
 # Hello World from thread 0
 # There are 16 threads in total
+
+pid_out = pid.out
+pid_c = process_id.c
+$(pid_out): $(pid_c)
+	gcc -o $(pid_out) $(pid_c)
+
+run2: $(pid_out)
+	./$(pid_out)
