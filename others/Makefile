@@ -34,3 +34,11 @@ $(pid_out): $(pid_c)
 
 run2: $(pid_out)
 	./$(pid_out)
+
+fork_out = fork.out
+fork_c = fork_process.c
+$(fork_out): $(fork_c)
+	gcc -o $(fork_out) $(fork_c)
+
+run3: $(fork_out)
+	./$(fork_out)
