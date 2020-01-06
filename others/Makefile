@@ -43,10 +43,7 @@ $(fork_out): $(fork_c)
 run3: $(fork_out)
 	./$(fork_out)
 
-wait_out = wait.out
-wait_c = wait_process.c
-$(wait_out): $(wait_c)
-	gcc -o $(wait_out) $(wait_c)
-
-run4: $(wait_out)
-	./$(wait_out)
+signal_out = signals.out
+signal_c = signals.c
+$(signal_out): $(signal_c)
+	gcc -o $(signal_out) $(signal_c)
