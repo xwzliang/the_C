@@ -42,3 +42,11 @@ $(fork_out): $(fork_c)
 
 run3: $(fork_out)
 	./$(fork_out)
+
+wait_out = wait.out
+wait_c = wait_process.c
+$(wait_out): $(wait_c)
+	gcc -o $(wait_out) $(wait_c)
+
+run4: $(wait_out)
+	./$(wait_out)
