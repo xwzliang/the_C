@@ -1,9 +1,13 @@
-#!/usr/bin/env bash
-
-# If OMP_NUM_THREADS not specified, there are 8 threads by default on my machine
 export OMP_NUM_THREADS=16
-gcc -fopenmp -o hello_world_openmp_parallel.out hello_world_openmp_parallel.c
-./hello_world_openmp_parallel.out
+# If OMP_NUM_THREADS not specified, there are 8 threads by default on my machine
+hw_out = hello_world_openmp_parallel.out
+hw_c = hello_world_openmp_parallel.c
+
+$(hw_out): $(hw_c)
+	gcc -fopenmp -o $(hw_out) $(hw_c)
+
+run1: $(hw_out)
+	./$(hw_out)
 ## Output example: (Not deterministic)
 # Hello World from thread 4
 # Hello World from thread 9
